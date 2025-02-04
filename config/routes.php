@@ -1,9 +1,9 @@
 <?php
 
-/**
- * Configuration des routes de l'application
- * Format: 'url' => ['controller' => 'NomController', 'action' => 'nomAction']
- */
+
+//  Configuration des routes de l'application
+//  Format: 'url' => ['controller' => 'NomController', 'action' => 'nomAction']
+ 
 
 $router = new \App\Core\Router();
 

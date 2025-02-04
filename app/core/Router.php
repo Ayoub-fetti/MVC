@@ -2,29 +2,13 @@
 
 namespace App\Core;
 
-class Router
-{
-    /**
-     * @var array Stores all registered routes
-     */
+class Router{
     private array $routes = [];
-
-    /**
-     * @var array Stores the current route parameters
-     */
     private array $params = [];
 
-    /**
-     * Add a route to the routing table
-     *
-     * @param string $route  The route URL
-     * @param array  $params Parameters (controller, action, etc.)
-     *
-     * @return void
-     */
+    // Convert the route to a regular expression (principale)
     public function add(string $route, array $params = []): void
     {
-        // Convert the route to a regular expression
         $route = preg_replace('/\//', '\\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
@@ -33,13 +17,8 @@ class Router
         $this->routes[$route] = $params;
     }
 
-    /**
-     * Match the route to the routes in the routing table
-     *
-     * @param string $url The route URL
-     *
-     * @return boolean True if a match is found, false otherwise
-     */
+
+    // Match the route to the routes in the routing table (principale)
     public function match(string $url): bool
     {
         foreach ($this->routes as $route => $params) {
@@ -56,24 +35,16 @@ class Router
         return false;
     }
 
-    /**
-     * Get the currently matched parameters
-     *
-     * @return array
-     */
+
+    // Get the currently matched parameters
     public function getParams(): array
     {
         return $this->params;
     }
 
-    /**
-     * Dispatch the route to the controller
-     *
-     * @param string $url The route URL
-     *
-     * @return void
-     * @throws \Exception
-     */
+   
+
+    // Dispatch the route to the controller (principale)
     public function dispatch(string $url): void
     {
         $url = $this->removeQueryStringVariables($url);
@@ -99,44 +70,32 @@ class Router
         }
     }
 
-    /**
-     * Get the controller name from the parameters
-     *
-     * @return string
-     */
+   
+    //Get the controller name from the parameters
     private function getControllerName(): string
     {
         $controller = $this->params['controller'] ?? '';
         return $this->formatControllerName($controller);
     }
 
-    /**
-     * Format the controller name to follow PSR-4 naming convention
-     *
-     * @param string $controller
-     * @return string
-     */
+   
+    // Format the controller name to follow PSR-4 naming convention
     private function formatControllerName(string $controller): string
     {
         return str_replace('-', '', ucwords($controller, '-')) . 'Controller';
     }
 
-    /**
-     * Get the action name from the parameters
-     *
-     * @return string
-     */
+    
+    // Get the action name from the parameters
     private function getActionName(): string
     {
         $action = $this->params['action'] ?? '';
         return lcfirst(str_replace('-', '', ucwords($action, '-')));
     }
 
-    /**
-     * Get the namespace for the controller class
-     *
-     * @return string
-     */
+   
+
+     // Get the namespace for the controller class
     private function getNamespace(): string
     {
         $namespace = 'App\Controllers\\';
@@ -146,13 +105,8 @@ class Router
         return $namespace;
     }
 
-    /**
-     * Remove query string variables from the URL
-     *
-     * @param string $url The full URL
-     *
-     * @return string The URL without query string variables
-     */
+   
+    // Remove query string variables from the URL
     private function removeQueryStringVariables(string $url): string
     {
         if ($url !== '') {
