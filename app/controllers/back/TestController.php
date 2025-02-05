@@ -6,12 +6,12 @@ use App\Core\Controller;
 
 class TestController extends Controller{
 
-    public function index(){
-        echo "Test Controller - Index Action"; 
+    public function indexTest(){
+        echo "Test Controller - IndexTest Action"; 
     }
 
-    public function hello($name = 'world'){
-        echo "Hello, {$name}!";
+    public function hello(){
+        echo "Hello from Test Controller!";
     }
 
     public function params(){

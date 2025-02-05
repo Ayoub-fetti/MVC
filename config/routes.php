@@ -1,10 +1,5 @@
 <?php
 
-
-//  Configuration des routes de app
-//  Format: 'url' => ['controller' => 'NomController', 'action' => 'nomAction']
- 
-
 $router = new \App\Core\Router();
 
 // Route par defaut (page d'accueil)
@@ -13,18 +8,18 @@ $router->add('/', [
     'action' => 'index'
 ]);
 
-// Routes de test
+// Routes simples
 $router->add('/test', [
     'controller' => 'Back\Test',
-    'action' => 'index'
+    'action' => 'indexTest'
 ]);
 
-$router->add('/test/hello/{name}', [
+$router->add('/hello', [
     'controller' => 'Back\Test',
     'action' => 'hello'
 ]);
 
-$router->add('/test/params', [
+$router->add('/params', [
     'controller' => 'Back\Test',
     'action' => 'params'
 ]);
