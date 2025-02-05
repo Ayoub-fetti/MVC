@@ -8,7 +8,7 @@ $router->add('/', [
     'action' => 'index'
 ]);
 
-// Routes simples
+// Routes bach ntester 
 $router->add('/test', [
     'controller' => 'Back\Test',
     'action' => 'indexTest'

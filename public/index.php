@@ -1,5 +1,5 @@
 <?php
-// Activer l'affichage des erreurs
+// errors display
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -17,10 +17,10 @@ try {
     $router->dispatch($url);
     
 } catch (Exception $e) {
-    // Afficher l'erreur
+    //
     echo "Erreur : " . $e->getMessage();
     echo "<br>Fichier : " . $e->getFile();
     echo "<br>Ligne : " . $e->getLine();
 }
-?>
+
 
