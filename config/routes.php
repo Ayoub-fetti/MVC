@@ -13,4 +13,20 @@ $router->add('/', [
     'action' => 'index'
 ]);
 
+// Routes de test
+$router->add('/test', [
+    'controller' => 'Back\Test',
+    'action' => 'index'
+]);
+
+$router->add('/test/hello/{name}', [
+    'controller' => 'Back\Test',
+    'action' => 'hello'
+]);
+
+$router->add('/test/params', [
+    'controller' => 'Back\Test',
+    'action' => 'params'
+]);
+
 return $router;
