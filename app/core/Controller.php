@@ -5,9 +5,9 @@ namespace App\Core;
 class Controller{
 
     // Cette fonction permet d'afficher les vues (views) de votre application Elle prend deux paramètres :
-    //$view : le nom de la vue à afficher (sans l'extension .php)
+    // $view : le nom de la vue à afficher (sans l'extension .php)
     // $data : un tableau de données (optionnel) à passer à la vue
-    //La fonction fait deux choses principales : Elle extrait les données du tableau $data en variables utilisables dans la vue
+    // La fonction fait deux choses principales : Elle extrait les données du tableau $data en variables utilisables dans la vue
     // Elle vérifie si le fichier de vue existe dans ../app/views/ et l'inclut
     // example : $this->render('home/index', ['title' => 'Accueil']);
 
