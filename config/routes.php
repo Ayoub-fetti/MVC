@@ -4,7 +4,7 @@ $router = new \App\Core\Router();
 
 // Route par defaut (page d'accueil)
 $router->add('/', [
-    'controller' => 'Home',
+    'controller' => 'Front\Home',
     'action' => 'index'
 ]);
 

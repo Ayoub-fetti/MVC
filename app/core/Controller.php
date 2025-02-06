@@ -1,5 +1,4 @@
 <?php
-// Cette classe Controller est la classe parent que tous vos contrôleurs devront extends. 
 
 namespace App\Core;
 class Controller{
