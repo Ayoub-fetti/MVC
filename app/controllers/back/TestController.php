@@ -68,18 +68,16 @@ class TestController extends Controller{
         // Test de suppression d'un utilisateur
         $user = $this->testCreate();
         
-        echo "<h2>Test bach delete zmer</h2>";
+        echo "<h2>Test bach namse7 user</h2>";
         echo "ID dyal khona: " . $user->getId() . "<br>";
         echo "Tsna chwiya ...<br>";
-        
-        // Dans un cas réel, on appellerait une méthode de suppression
         echo "Safi rah msa7t khona";
     }
 
     public function testAll() {
         echo "<h1>Tests CRUD Utilisateur</h1>";
         
-        // Exécuter tous les tests
+        // Executer tous les tests
         echo "<div style='margin: 20px; padding: 20px; border: 1px solid #ccc;'>";
         $this->testCreate();
         echo "</div>";

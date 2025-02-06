@@ -25,27 +25,27 @@ $router->add('/params', [
 ]);
 
 // Routes bach ntester CRUD
-$router->add('/test/create', [
+$router->add('/create', [
     'controller' => 'Back\Test',
     'action' => 'testCreate'
 ]);
 
-$router->add('/test/read', [
+$router->add('/read', [
     'controller' => 'Back\Test',
     'action' => 'testRead'
 ]);
 
-$router->add('/test/update', [
+$router->add('/update', [
     'controller' => 'Back\Test',
     'action' => 'testUpdate'
 ]);
 
-$router->add('/test/delete', [
+$router->add('/delete', [
     'controller' => 'Back\Test',
     'action' => 'testDelete'
 ]);
 
-$router->add('/test/all', [
+$router->add('/all', [
     'controller' => 'Back\Test',
     'action' => 'testAll'
 ]);
