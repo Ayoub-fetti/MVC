@@ -26,9 +26,9 @@ class TestController extends Controller{
         // Test de creation d'un utilisateur
         $user = new User(1, 'ayoub', 'ayoub@gmail.com', '123456', date('Y-m-d H:i:s'));
         
-        echo "<h2>Test bach ncreer un user</h2>";
+        echo "<h2>Test pour ncreer un user</h2>";
         echo "ID: " . $user->getId() . "<br>";
-        echo "Smiya: " . $user->getUsername() . "<br>";
+        echo "Name: " . $user->getUsername() . "<br>";
         echo "Email: " . $user->getEmail() . "<br>";
         echo "Password: " . $user->getPassword() . "<br>";
         echo "Date création: " . $user->getCreatedAt() . "<br>";
@@ -44,9 +44,9 @@ class TestController extends Controller{
             $user = new User($id, 'test_user', 'test@example.com', 'test123', date('Y-m-d H:i:s'));
         }
 
-        echo "<h2>Test bach jbed un user</h2>";
+        echo "<h2>Test pour jbed un user</h2>";
         echo "ID: " . $user->getId() . "<br>";
-        echo "Smiya: " . $user->getUsername() . "<br>";
+        echo "Name: " . $user->getUsername() . "<br>";
         echo "Email: " . $user->getEmail() . "<br>";
     }
 
@@ -54,21 +54,21 @@ class TestController extends Controller{
         // Test de mise à jour d'un utilisateur
         $user = $this->testCreate();
         
-        echo "<h2>Test bach update un user</h2>";
+        echo "<h2>Test pour update un user</h2>";
         echo "before:<br>";
-        echo "Smiya: " . $user->getUsername() . "<br>";
+        echo "Name: " . $user->getUsername() . "<br>";
         
         $user->setUsername('Ayoub Oumha');
         
         echo "after:<br>";
-        echo "Smiya: " . $user->getUsername() . "<br>";
+        echo "Name: " . $user->getUsername() . "<br>";
     }
 
     public function testDelete() {
         // Test de suppression d'un utilisateur
         $user = $this->testCreate();
         
-        echo "<h2>Test bach namse7 user</h2>";
+        echo "<h2>Test pour namse7 user</h2>";
         echo "ID dyal khona: " . $user->getId() . "<br>";
         echo "Tsna chwiya ...<br>";
         echo "Safi rah msa7t khona";
