@@ -16,9 +16,13 @@ class Auth {
     public function register($data) {
         // Validation des données
         $errors = [];
+
+      
         
         if (!$this->validator->validateEmail($data['email'])) {
             $errors['email'] = "Email invalide";
+            var_dump($errors['email']);die();
+            
         }
         
         if (!$this->validator->validateMin($data['password'], 6)) {
@@ -48,28 +52,40 @@ class Auth {
         }
     }
 
+   
     public function login($email, $password) {
+        
+        $errors = [];
+        
         // Validation de l'email
         if (!$this->validator->validateEmail($email)) {
-            return ['success' => false, 'error' => "Email invalide"];
+            var_dump($email);die();
+            $errors['email'] = "Email invalide";
+           
         }
-
+    
         // Recherche de l'utilisateur avec Eloquent
         $user = User::where('email', $email)->first();
-
+    
         if (!$user || !password_verify($password, $user->password)) {
-            return ['success' => false, 'error' => "Email ou mot de passe incorrect"];
+            $errors['password'] = "Email ou mot de passe incorrect";
         }
-
+    
+        // Vérifier s'il y a des erreurs et les retourner
+        if (!empty($errors)) {
+            return ['success' => false, 'errors' => $errors];
+        }
+    
         // Création de la session
         $this->session->set('user_id', $user->id);
         $this->session->set('user_email', $user->email);
-        
+    
         // Régénération de l'ID de session pour la sécurité
         $this->session->regenerate();
-
+    
         return ['success' => true];
     }
+    
 
     public function isLoggedIn() {
         return $this->session->has('user_id');

@@ -2,7 +2,8 @@
 
 $router = new \App\Core\Router();
 
-
+// default route
+$router->get('/', 'HomeController@index');
 
 // Authentication routes
 $router->get('/login', 'AuthController@login');

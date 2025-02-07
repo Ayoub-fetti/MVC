@@ -27,6 +27,31 @@ class AuthController extends View
             $this->render('auth/register');
       
     }
+    // public function handllogin()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
+    //         // var_dump($_SERVER['REQUEST_METHOD']);die();
+    //         $email = $_POST['email'] ?? '';
+    //         $password = $_POST['password'] ?? '';
+
+    //         if ($this->auth->login($email, $password)) {
+    //             $user = $this->auth->getCurrentUser();
+    //             if ($user->role === 'admin') {
+    //                 $this->redirect('admin/dashboard');
+    //             } else {
+    //                 $this->redirect('dashboard');
+    //             }
+    //         } else {
+    //             $this->render('auth/login', [
+    //                 'error' => 'Invalid credentials',
+    //                 'email' => $email
+    //             ]);
+    //         }
+    //     } else {
+    //         $this->render('auth/login');
+    //     }
+    // }
+
     public function handllogin()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
@@ -43,7 +68,7 @@ class AuthController extends View
                 }
             } else {
                 $this->render('auth/login', [
-                    'error' => 'Invalid credentials',
+                    'errors' => ['login' => 'Invalid credentials'],
                     'email' => $email
                 ]);
             }
@@ -51,7 +76,6 @@ class AuthController extends View
             $this->render('auth/login');
         }
     }
-
     public function handlregister()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

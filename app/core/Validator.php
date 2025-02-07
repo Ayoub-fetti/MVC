@@ -69,13 +69,16 @@ class Validator{
      // Valide si un champ est une adresse email valide
     public function validateEmail(string $field): bool
     {
+        
         // Skip la validation si le champ est vide (sauf si required est utilisé)
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
         }
-
+        
+        
         // Utilise le filtre PHP intégré pour valider l'email
         if (!filter_var($this->data[$field], FILTER_VALIDATE_EMAIL)) {
+           
             $this->errors[$field]= "Le champ {$field} doit être une adresse email valide.";
             return false;
         }
@@ -86,6 +89,7 @@ class Validator{
      // Valide la longueur minimale d'un champ
     public function validateMin(string $field, string $parameter): bool
     {
+        var_dump("valid min");
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
         }

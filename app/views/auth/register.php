@@ -38,7 +38,7 @@
                            type="text"
                            name="username"
                            value="<?php echo isset($data['username']) ? htmlspecialchars($data['username']) : ''; ?>"
-                           required>
+                           >
                 </div>
 
                 <div class="mb-4">

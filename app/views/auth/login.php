@@ -17,6 +17,18 @@
                 </div>
             <?php endif; ?>
 
+            <?php if (isset($errors)): ?>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <ul>
+                        <?php foreach ($errors as $field => $error): ?>
+                            <li><?php echo htmlspecialchars($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+
+
             <form method="POST" action="/MVC/handllogin">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -27,7 +39,7 @@
                            type="email"
                            name="email"
                            value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>"
-                           required>
+                           >
                 </div>
 
                 <div class="mb-6">
@@ -38,7 +50,7 @@
                            id="password"
                            type="password"
                            name="password"
-                           required>
+                           >
                 </div>
 
                 <div class="flex items-center justify-between">
