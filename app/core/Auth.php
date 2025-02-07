@@ -59,7 +59,6 @@ class Auth {
         
         // Validation de l'email
         if (!$this->validator->validateEmail($email)) {
-            var_dump($email);die();
             $errors['email'] = "Email invalide";
            
         }

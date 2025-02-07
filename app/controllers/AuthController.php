@@ -27,10 +27,11 @@ class AuthController extends View
             $this->render('auth/register');
       
     }
+
+
     // public function handllogin()
     // {
     //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
-    //         // var_dump($_SERVER['REQUEST_METHOD']);die();
     //         $email = $_POST['email'] ?? '';
     //         $password = $_POST['password'] ?? '';
 
@@ -43,7 +44,7 @@ class AuthController extends View
     //             }
     //         } else {
     //             $this->render('auth/login', [
-    //                 'error' => 'Invalid credentials',
+    //                 'errors' => ['login' => 'Invalid credentials'],
     //                 'email' => $email
     //             ]);
     //         }
@@ -51,31 +52,31 @@ class AuthController extends View
     //         $this->render('auth/login');
     //     }
     // }
+    public function handllogin(){
+        
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
 
-    public function handllogin()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
-            // var_dump($_SERVER['REQUEST_METHOD']);die();
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
+        $result = $this->auth->login($email, $password);
 
-            if ($this->auth->login($email, $password)) {
-                $user = $this->auth->getCurrentUser();
-                if ($user->role === 'admin') {
-                    $this->redirect('admin/dashboard');
-                } else {
-                    $this->redirect('dashboard');
-                }
+        if ($result['success']) {
+            $user = $this->auth->getCurrentUser();
+            if ($user->role === 'admin') {
+                $this->redirect('admin/dashboard');
             } else {
-                $this->render('auth/login', [
-                    'errors' => ['login' => 'Invalid credentials'],
-                    'email' => $email
-                ]);
+                $this->redirect('dashboard');
             }
         } else {
-            $this->render('auth/login');
+            $this->render('auth/login', [
+                'errors' => $result['errors'],
+                'email' => $email
+            ]);
         }
+    } else {
+        $this->render('auth/login');
     }
+}
     public function handlregister()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
