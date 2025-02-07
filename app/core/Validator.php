@@ -59,7 +59,7 @@ class Validator{
         $value = $this->data[$field] ?? '';
         // Vérifie si le champ est vide (mais accepte '0' comme valeur valide)
         if (empty($value) && $value !== '0') {
-            $this->errors[$field][] = "Le champ {$field} est obligatoire.";
+            $this->errors[$field]= "Le champ {$field} est obligatoire.";
             return false;
         }
         return true;
@@ -76,7 +76,7 @@ class Validator{
 
         // Utilise le filtre PHP intégré pour valider l'email
         if (!filter_var($this->data[$field], FILTER_VALIDATE_EMAIL)) {
-            $this->errors[$field][] = "Le champ {$field} doit être une adresse email valide.";
+            $this->errors[$field]= "Le champ {$field} doit être une adresse email valide.";
             return false;
         }
         return true;
@@ -92,7 +92,7 @@ class Validator{
 
         // Vérifie si la longueur est supérieure ou égale au minimum requis
         if (strlen($this->data[$field]) < (int)$parameter) {
-            $this->errors[$field][] = "Le champ {$field} doit contenir au moins {$parameter} caractères.";
+            $this->errors[$field]= "Le champ {$field} doit contenir au moins {$parameter} caractères.";
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ class Validator{
 
         // Vérifie si la longueur ne dépasse pas le maximum autorisé
         if (strlen($this->data[$field]) > (int)$parameter) {
-            $this->errors[$field][] = "Le champ {$field} ne doit pas dépasser {$parameter} caractères.";
+            $this->errors[$field]= "Le champ {$field} ne doit pas dépasser {$parameter} caractères.";
             return false;
         }
         return true;
@@ -124,7 +124,7 @@ class Validator{
 
         // Vérifie si la valeur est numérique
         if (!is_numeric($this->data[$field])) {
-            $this->errors[$field][] = "Le champ {$field} doit être numérique.";
+            $this->errors[$field]= "Le champ {$field} doit être numérique.";
             return false;
         }
         return true;
@@ -141,7 +141,7 @@ class Validator{
 
         // Vérifie si la valeur contient uniquement des lettres
         if (!ctype_alpha($this->data[$field])) {
-            $this->errors[$field][] = "Le champ {$field} ne doit contenir que des lettres.";
+            $this->errors[$field]= "Le champ {$field} ne doit contenir que des lettres.";
             return false;
         }
         return true;
@@ -157,7 +157,7 @@ class Validator{
 
         // Vérifie si la valeur contient uniquement des lettres et des chiffres
         if (!ctype_alnum($this->data[$field])) {
-            $this->errors[$field][] = "Le champ {$field} ne doit contenir que des lettres et des chiffres.";
+            $this->errors[$field]= "Le champ {$field} ne doit contenir que des lettres et des chiffres.";
             return false;
         }
         return true;

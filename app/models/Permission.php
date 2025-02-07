@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Core\Model;
+use App\Models\Role;
+use App\Models\RolePermission;
 
 class Permission extends Model
 {
@@ -12,10 +14,15 @@ class Permission extends Model
     public function roles()
     {
         return $this->belongsToMany(
-            'App\Models\Role',
+            Role::class,
             'role_permissions',
             'permission_id',
             'role_id'
         );
+    }
+
+    public function rolePermissions()
+    {
+        return $this->hasMany(RolePermission::class);
     }
 }

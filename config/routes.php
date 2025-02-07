@@ -2,28 +2,25 @@
 
 $router = new \App\Core\Router();
 
-// Route par defaut (page d'accueil)
-$router->add('/', [
-    'controller' => 'Front\Home',
-    'action' => 'index'
-]);
+// Default route shows login page
+// $router->get('/', 'AuthController@login');
 
-// Routes bach ntester 
-$router->add('/test', [
-    'controller' => 'Back\Test',
-    'action' => 'indexTest'
-]);
+// Authentication routes
+$router->get('/login', 'AuthController@login');
+$router->post('/handllogin', 'AuthController@handllogin');
 
-$router->add('/hello', [
-    'controller' => 'Back\Test',
-    'action' => 'hello'
-]);
+$router->get('/register', 'AuthController@register');
+$router->post('/handlregister', 'AuthController@handlregister');
 
-$router->add('/params', [
-    'controller' => 'Back\Test',
-    'action' => 'params'
-]);
+$router->get('/logout', 'AuthController@logout');
 
+// Dashboard routes
+$router->get('/dashboard', 'DashboardController@index');
 
+// Admin routes
+$router->get('/admin/dashboard', 'DashboardController@index');
+$router->get('/admin/users', 'AdminController@users');
+$router->get('/admin/permissions', 'AdminController@permissions');
+$router->post('/admin/permissions', 'AdminController@permissions');
 
 return $router;

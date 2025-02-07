@@ -4,17 +4,24 @@ namespace App\Models;
 
 use App\Core\Model;
 use App\Models\Permission;
+use App\Models\RolePermission;
+use App\Models\Role;
 
 class User extends Model
 {
     protected $table = 'users';
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['username', 'email', 'password', 'role'];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role', 'name');
+    }
 
     public function permissions()
     {
         return $this->hasManyThrough(
             Permission::class,
-            'role_permissions',
+            RolePermission::class,
             'role',
             'id',
             'role',
@@ -22,11 +29,9 @@ class User extends Model
         );
     }
 
-    public function hasPermission($permissionName)
+    public function hasPermission($permission)
     {
-        return $this->permissions()
-            ->where('name', $permissionName)
-            ->exists();
+        return $this->permissions()->where('name', $permission)->exists();
     }
 
     public function getAllPermissions()
