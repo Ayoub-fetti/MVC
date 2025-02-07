@@ -2,8 +2,7 @@
 
 $router = new \App\Core\Router();
 
-// Default route shows login page
-// $router->get('/', 'AuthController@login');
+
 
 // Authentication routes
 $router->get('/login', 'AuthController@login');
