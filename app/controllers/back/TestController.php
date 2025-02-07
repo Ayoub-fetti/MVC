@@ -1,13 +1,13 @@
 <?php 
-
 namespace App\Controllers\Back;
-
 use App\Core\Controller;
 use App\Models\User;
 
-class TestController extends Controller{
+class TestController extends Controller {
 
     public function indexTest(){
+        $user = User::find(1);
+        var_dump($user);
         echo "Test Controller - IndexTest Action"; 
     }
 
@@ -23,61 +23,72 @@ class TestController extends Controller{
     }
 
     public function testCreate() {
-        // Test de creation d'un utilisateur
-        $user = new User(1, 'ayoub', 'ayoub@gmail.com', '123456', date('Y-m-d H:i:s'));
+        // Test de creation d'un utilisateur using Eloquent
+        $user = User::create([
+            'username' => 'ayoub',
+            'email' => 'ayoub@gmail.com',
+            'password' => '123456'
+        ]);
         
-        echo "<h2>Test pour ncreer un user</h2>";
-        echo "ID: " . $user->getId() . "<br>";
-        echo "Name: " . $user->getUsername() . "<br>";
-        echo "Email: " . $user->getEmail() . "<br>";
-        echo "Password: " . $user->getPassword() . "<br>";
-        echo "Date création: " . $user->getCreatedAt() . "<br>";
+        echo "<h2>Test pour creer un user</h2>";
+        echo "ID: " . $user->id . "<br>";
+        echo "Name: " . $user->username . "<br>";
+        echo "Email: " . $user->email . "<br>";
+        echo "Date création: " . $user->created_at . "<br>";
         
         return $user;
     }
 
     public function testRead($id = null) {
-        // Test de lecture d'un utilisateur
+        // Test de lecture d'un utilisateur using Eloquent
         if ($id === null) {
-            $user = $this->testCreate(); // Creer un utilisateur de test si aucun ID n'est fourni
+            $user = $this->testCreate(); // Create a test user if no ID provided
         } else {
-            $user = new User($id, 'test_user', 'test@example.com', 'test123', date('Y-m-d H:i:s'));
+            $user = User::find($id);
+            if (!$user) {
+                echo "User not found!";
+                return;
+            }
         }
 
-        echo "<h2>Test pour jbed un user</h2>";
-        echo "ID: " . $user->getId() . "<br>";
-        echo "Name: " . $user->getUsername() . "<br>";
-        echo "Email: " . $user->getEmail() . "<br>";
+        echo "<h2>Test pour lire un user</h2>";
+        echo "ID: " . $user->id . "<br>";
+        echo "Name: " . $user->username . "<br>";
+        echo "Email: " . $user->email . "<br>";
     }
 
     public function testUpdate() {
-        // Test de mise à jour d'un utilisateur
+        // Test de mise à jour d'un utilisateur using Eloquent
         $user = $this->testCreate();
         
         echo "<h2>Test pour update un user</h2>";
         echo "before:<br>";
-        echo "Name: " . $user->getUsername() . "<br>";
+        echo "Name: " . $user->username . "<br>";
         
-        $user->setUsername('Ayoub Oumha');
+        $user->username = 'Ayoub Oumha';
+        $user->save();
         
         echo "after:<br>";
-        echo "Name: " . $user->getUsername() . "<br>";
+        echo "Name: " . $user->username . "<br>";
     }
 
     public function testDelete() {
-        // Test de suppression d'un utilisateur
+        // Test de suppression d'un utilisateur using Eloquent
         $user = $this->testCreate();
         
-        echo "<h2>Test pour namse7 user</h2>";
-        echo "ID dyal khona: " . $user->getId() . "<br>";
-        echo "Tsna chwiya ...<br>";
-        echo "Safi rah msa7t khona";
+        echo "<h2>Test pour supprimer user</h2>";
+        echo "ID: " . $user->id . "<br>";
+        echo "Suppression en cours...<br>";
+        
+        $user->delete();
+        
+        echo "Utilisateur supprimé avec succès";
     }
 
     public function testAll() {
         echo "<h1>Tests CRUD Utilisateur</h1>";
         
-        // Executer tous les tests
+        // Execute all tests
         echo "<div style='margin: 20px; padding: 20px; border: 1px solid #ccc;'>";
         $this->testCreate();
         echo "</div>";
