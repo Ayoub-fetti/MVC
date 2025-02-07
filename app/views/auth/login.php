@@ -1,3 +1,10 @@
+<?php 
+use App\core\Security;
+
+$csrfToken = Security::generateCSRFToken();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +20,7 @@
             
             <?php if (isset($error)): ?>
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    <?php echo $error; ?>
+                    <?php echo Security::sanitizeXSS($error); ?>
                 </div>
             <?php endif; ?>
 
@@ -21,7 +28,7 @@
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     <ul>
                         <?php foreach ($errors as $field => $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
+                            <li><?php echo Security::sanitizeXSS($error); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -30,6 +37,7 @@
 
 
             <form method="POST" action="/MVC/handllogin">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                         Email
@@ -38,7 +46,7 @@
                            id="email"
                            type="email"
                            name="email"
-                           value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>"
+                           value="<?php echo isset($email) ? Security::sanitizeXSS($email) : ''; ?>"
                            >
                 </div>
 

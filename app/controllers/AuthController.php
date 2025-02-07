@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\View;
 use App\Core\Auth;
+use App\Core\Security;
 use App\Models\User;
 
 class AuthController extends View
@@ -17,70 +18,52 @@ class AuthController extends View
 
     public function login()
     {
-       
-            $this->render('auth/login');
-      
-    }
-    public function register()
-    {
-       
-            $this->render('auth/register');
-      
-    }
-
-
-    // public function handllogin()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
-    //         $email = $_POST['email'] ?? '';
-    //         $password = $_POST['password'] ?? '';
-
-    //         if ($this->auth->login($email, $password)) {
-    //             $user = $this->auth->getCurrentUser();
-    //             if ($user->role === 'admin') {
-    //                 $this->redirect('admin/dashboard');
-    //             } else {
-    //                 $this->redirect('dashboard');
-    //             }
-    //         } else {
-    //             $this->render('auth/login', [
-    //                 'errors' => ['login' => 'Invalid credentials'],
-    //                 'email' => $email
-    //             ]);
-    //         }
-    //     } else {
-    //         $this->render('auth/login');
-    //     }
-    // }
-    public function handllogin(){
-        
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
-
-        $result = $this->auth->login($email, $password);
-
-        if ($result['success']) {
-            $user = $this->auth->getCurrentUser();
-            if ($user->role === 'admin') {
-                $this->redirect('admin/dashboard');
-            } else {
-                $this->redirect('dashboard');
-            }
-        } else {
-            $this->render('auth/login', [
-                'errors' => $result['errors'],
-                'email' => $email
-            ]);
-        }
-    } else {
         $this->render('auth/login');
     }
-}
+
+    public function register()
+    {
+        $this->render('auth/register');
+    }
+
+    public function handllogin()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $csrfToken = $_POST['csrf_token'] ?? '';
+            if (!Security::validateCSRFToken($csrfToken)) {
+                $this->render('auth/login', [
+                    'errors' => ['csrf' => 'Invalid CSRF token'],
+                ]);
+                return;
+            }
+
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+
+            $result = $this->auth->login($email, $password);
+
+            if ($result['success']) {
+                $user = $this->auth->getCurrentUser();
+                if ($user->role === 'admin') {
+                    $this->redirect('admin/dashboard');
+                } else {
+                    $this->redirect('dashboard');
+                }
+            } else {
+                $this->render('auth/login', [
+                    'errors' => $result['errors'],
+                    'email' => $email
+                ]);
+            }
+        } else {
+            $this->render('auth/login');
+        }
+    }
+
     public function handlregister()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
+                        $data = [
                 'username' => $_POST['username'] ?? '',
                 'email' => $_POST['email'] ?? '',
                 'password' => $_POST['password'] ?? '',
