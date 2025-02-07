@@ -5,8 +5,8 @@ namespace App\Core;
  // Classe Validator pour la validation des données utilisateur
  // Cette classe permet de valider les données d'entrée selon des règles définies
 class Validator{
-    private array $errors = [];
-    private array $data;
+    public array $errors = [];
+    public array $data;
 
     public function __construct(array $data)
     {
@@ -54,7 +54,7 @@ class Validator{
 
 
     // Valide si un champ est requis (non vide)
-    private function validateRequired(string $field): bool
+    public function validateRequired(string $field): bool
     {
         $value = $this->data[$field] ?? '';
         // Vérifie si le champ est vide (mais accepte '0' comme valeur valide)
@@ -67,7 +67,7 @@ class Validator{
 
 
      // Valide si un champ est une adresse email valide
-    private function validateEmail(string $field): bool
+    public function validateEmail(string $field): bool
     {
         // Skip la validation si le champ est vide (sauf si required est utilisé)
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
@@ -84,7 +84,7 @@ class Validator{
 
 
      // Valide la longueur minimale d'un champ
-    private function validateMin(string $field, string $parameter): bool
+    public function validateMin(string $field, string $parameter): bool
     {
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
@@ -100,7 +100,7 @@ class Validator{
 
 
     // Valide la longueur maximale d'un champ
-    private function validateMax(string $field, string $parameter): bool
+    public function validateMax(string $field, string $parameter): bool
     {
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
@@ -116,7 +116,7 @@ class Validator{
 
 
     // Valide si un champ contient une valeur numérique
-    private function validateNumeric(string $field): bool
+    public function validateNumeric(string $field): bool
     {
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
@@ -133,7 +133,7 @@ class Validator{
 
     // Valide si un champ contient uniquement des lettres
 
-    private function validateAlpha(string $field): bool
+    public function validateAlpha(string $field): bool
     {
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
@@ -149,7 +149,7 @@ class Validator{
 
 
     // Valide si un champ contient uniquement des lettres et des chiffres
-    private function validateAlphaNum(string $field): bool
+    public function validateAlphaNum(string $field): bool
     {
         if (!isset($this->data[$field]) || empty($this->data[$field])) {
             return true;
